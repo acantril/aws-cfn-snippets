@@ -1,0 +1,19 @@
+Parameters:
+  # Use public Systems Manager Parameter to get latest AMI ID
+  LatestAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+  InstanceType:
+    Default: 't2.micro'
+    Type: String
+  # List of active EC2 KeyPairs
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+
+Resources:
+ Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref LatestAmiId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
